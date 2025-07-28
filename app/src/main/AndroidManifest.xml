@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Application">
         <activity
+            android:name=".Chatspage"
+            android:exported="false" />
+        <activity
             android:name=".EnterOTP"
             android:exported="false" />
         <activity
