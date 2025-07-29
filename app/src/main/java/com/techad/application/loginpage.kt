@@ -22,6 +22,13 @@ class loginpage : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.editTextTextPassword)
         val btnLogin = findViewById<Button>(R.id.button2)
 
+        val signupTextView = findViewById<TextView>(R.id.textView6)
+
+        signupTextView.setOnClickListener {
+            val intent = Intent(this, signup::class.java)
+            startActivity(intent)
+        }
+
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()

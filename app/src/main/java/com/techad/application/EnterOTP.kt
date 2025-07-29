@@ -15,7 +15,8 @@ class EnterOTP : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_enter_otp)
 
-
+        val etOTP = findViewById<EditText>(R.id.editTextNumber)
+        val btnVerify = findViewById<Button>(R.id.button4)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
