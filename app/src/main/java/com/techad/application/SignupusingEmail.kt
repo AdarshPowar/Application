@@ -11,15 +11,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
+
 
 class SignupusingEmail : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var etName: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnSignup: Button
+    private lateinit var loginWithMobile: TextView
+    private lateinit var mDbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_signupusing_email)
+
+        supportActionBar?.hide()
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -27,6 +39,7 @@ class SignupusingEmail : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.editTextTextPassword2)
         val btnSignup = findViewById<Button>(R.id.button5)
         val loginWithMobile = findViewById<TextView>(R.id.textView14)
+        val etName = findViewById<EditText>(R.id.NameoftheUser)
 
         loginWithMobile.setOnClickListener {
             val intent = Intent(this, signup::class.java)
@@ -34,6 +47,7 @@ class SignupusingEmail : AppCompatActivity() {
         }
 
         btnSignup.setOnClickListener {
+            val name = etName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
             if (email.isEmpty() || password.isEmpty()) {
@@ -41,14 +55,15 @@ class SignupusingEmail : AppCompatActivity() {
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Enter a valid email", Toast.LENGTH_SHORT).show()
             } else {
-                signup(email, password)
+                signup(name, email, password)
             }
         }
 
         btnSignup.setOnClickListener {
+            val name = etName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
-            signup(email, password) // ✅ Call correct function
+            signup(name,email, password) // ✅ Call correct function
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -59,7 +74,7 @@ class SignupusingEmail : AppCompatActivity() {
     }
 
     // ✅ Moved out and marked private
-    private fun signup(email: String, password: String) {
+    private fun signup(name: String, email: String, password: String) {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             return
@@ -68,7 +83,10 @@ class SignupusingEmail : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this@SignupusingEmail, HomeActivity::class.java)
+
+                    addUserToDatabase(name,email,mAuth.currentUser?.uid)
+
+                    val intent = Intent(this@SignupusingEmail, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
@@ -79,6 +97,21 @@ class SignupusingEmail : AppCompatActivity() {
                 }
             }
     }
+
+    private fun addUserToDatabase(name: String, email: String, uid: String?) {
+        if (uid == null) {
+            Toast.makeText(this, "UID is null, user not added to database", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        mDbRef = FirebaseDatabase.getInstance().getReference()
+
+        mDbRef.child("User").child(uid).setValue(User(name, email, uid))
+
+    }
+
+
+
 }
 
 
