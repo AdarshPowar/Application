@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
@@ -48,6 +49,7 @@ dependencies {
         implementation("com.google.firebase:firebase-auth")
     }
     implementation("com.hbb20:ccp:2.5.4")
+    implementation("com.google.firebase:firebase-analytics")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)

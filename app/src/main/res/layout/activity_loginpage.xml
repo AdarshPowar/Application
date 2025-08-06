@@ -68,6 +68,7 @@
         android:layout_height="28dp"
         android:layout_marginTop="24dp"
         android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:text="Forgot Password?"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
@@ -102,11 +103,13 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="23dp"
         android:clickable="true"
         android:focusable="true"
+        android:gravity="center"
         android:text="Sign Up"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.12"
