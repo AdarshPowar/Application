@@ -5,7 +5,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
 
         <TextView
             android:layout_marginTop="5dp"
@@ -19,7 +20,7 @@
 
         <View
             android:layout_below="@+id/txt_name"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

@@ -87,6 +87,7 @@ class SignupusingEmail : AppCompatActivity() {
                     addUserToDatabase(name,email,mAuth.currentUser?.uid)
 
                     val intent = Intent(this@SignupusingEmail, MainActivity::class.java)
+                    finish()
                     startActivity(intent)
                 } else {
                     Toast.makeText(
