@@ -13,12 +13,14 @@
         android:theme="@style/Theme.Application">
         <activity
             android:name=".ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".SignupusingEmail"
             android:exported="false" />
         <activity
             android:name=".Chatspage"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".EnterOTP"

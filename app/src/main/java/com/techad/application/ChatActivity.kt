@@ -27,7 +27,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<message>
     private lateinit var mDbRef: DatabaseReference
-
     var receiverRoom: String? = null
     var senderRoom: String? = null
 
@@ -64,28 +63,28 @@ class ChatActivity : AppCompatActivity() {
         messageRecyclerView.adapter=messageAdapter
 
         //logic for adding data to recycler view
-        mDbRef.child("chats").child("senderRoom!!").child("messages")
-            .addValueEventListener(object: ValueEventListener{
+        // logic for adding data to recycler view
+        mDbRef.child("chats").child(senderRoom!!).child("messages")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
                     messageList.clear()
-
-
-                    for(postSnapshot in snapshot.children){
-                        val message=postSnapshot.getValue(message::class.java)
-                        messageList.add(message!!)
-
+                    for (postSnapshot in snapshot.children) {
+                        val message = postSnapshot.getValue(message::class.java)
+                        if (message != null) {
+                            messageList.add(message)
+                        }
                     }
                     messageAdapter.notifyDataSetChanged()
-
-
                 }
-                override fun onCancelled(error: DatabaseError) {
 
-                }
+                override fun onCancelled(error: DatabaseError) {}
             })
 
-       //adding the message to database
+
+
+
+
+        //adding the message to database
         sendButton.setOnClickListener {
 
             val message=messageBox.text.toString()
